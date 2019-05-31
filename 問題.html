@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>–â‘è</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+
+<script>
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+    
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+var usersRef = db.collection("users");
+
+//“ú•tæ“¾
+
+myTbl     = new Array("“ú","Œ","‰Î","…","–Ø","‹à","“y");
+  myD       = new Date();
+  myYear    = myD.getYear()
+  myYear4   = (myYear < 2000) ? myYear+1900 : myYear;
+  myMonth   = myD.getMonth() + 1;
+  myDate    = myD.getDate();
+  myDay     = myD.getDay();
+  myHours   = myD.getHours();
+  myMinutes = myD.getMinutes();
+  mySeconds = myD.getSeconds();
+
+  myMess1   = myYear4 + "”N" + myMonth + "Œ" + myDate + "“ú";
+  myMess2   = myTbl[myDay] + "—j“ú";
+  myMess3   = myHours + "" + myMinutes + "•ª" + mySeconds + "•b";
+  myMess    = myMess1 + " " + myMess2 + " " + myMess3;
+
+</script>
+
+ </head>
+  <body>
+
+–â1.AĞ‚ÍBĞ‚Ö¤•i2,500‰~‚ğ”„‚èã‚°A‘ã‹à‚ÍBĞUo‚µ‚Ì¬Øè‚Åó‚¯æ‚Á‚½B
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">Ø•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+<td style="width: 25%; text-align: center;">‘İ•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q1-1">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+<option value="d–ó‚È‚µ">d–ó‚È‚µ</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q1-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q1-3">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q1-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+
+<button onclick="answer(1)">‰ñ“š‚·‚é</button>
+<div id="Answer1"></div>
+
+
+–â2.AĞ‚ÍBĞ‚©‚çó‚¯æ‚Á‚½¬Øè‚Ì‚¤‚¿A1,500‰~•ª‚ğ‹âs‚ÅŠ·‹à‚µ‚½B
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">Ø•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+<td style="width: 25%; text-align: center;">‘İ•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q2-1">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+<option value="d–ó‚È‚µ">d–ó‚È‚µ</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q2-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q2-3">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+</select>
+</td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q2-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+<button onclick="answer(2)">‰ñ“š‚·‚é</button>
+<div id="Answer2"></div>
+
+–â3.AĞ‚ÍCĞ‚©‚ç¤•i1,000‰~•ª‚ğd“ü‚êA‘ã‹à‚ÍBĞ‚©‚çó‚¯æ‚Á‚½¬Øè‚Åx•¥‚Á‚½B
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">Ø•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+<td style="width: 25%; text-align: center;">‘İ•û</td>
+<td style="width: 25%; text-align: center;">‹àŠz</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q3-1">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+<option value="d–ó‚È‚µ">d–ó‚È‚µ</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q3-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q3-3">
+<option value=""></option>
+<option value="Œ»‹à">Œ»‹à</option>
+<option value="”ƒŠ|‹à">”ƒŠ|‹à</option>
+<option value="”„Š|‹à">”„Š|‹à</option>
+<option value="d“ü">d“ü</option>
+<option value="”„ã">”„ã</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q3-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+<button onclick="answer(3)">‰ñ“š‚·‚é</button>
+<div id="Answer3"></div>
+
+<script>
+var is_check = function(id){
+	return document.getElementById(id).checked;
+};
+
+var answer = function(question_id) {
+	var result = true;
+
+	switch(question_id){
+	case 1:
+		result = (document.getElementById("q1-1").value == "Œ»‹à" && document.getElementById("q1-2").value == "2,500" && document.getElementById("q1-3").value == "”„ã" && document.getElementById("q1-4").value == "2,500");
+		break;
+
+	case 2:
+		result = (document.getElementById("q2-1").value == "d–ó‚È‚µ" && document.getElementById("q2-2").value == "" && document.getElementById("q2-3").value == "" && document.getElementById("q2-4").value == "");
+		break;
+
+	case 3:
+		result = (document.getElementById("q3-1").value == "d“ü" && document.getElementById("q3-2").value == "1,000" && document.getElementById("q3-3").value == "Œ»‹à" && document.getElementById("q3-4").value == "1,000");
+		break;
+
+	}
+	
+	document.getElementById("Answer" + question_id).innerHTML = (result ? "<p class='result' value='true'>³‰ğ!!(*'ƒÖ'*)</p>" : "<p class='result' value='false'>•s³‰ğ¥¥¥(L;ƒÖ;M)</p>");
+};
+
+//ƒf[ƒ^‚Ì‘—M
+
+usersRef.doc("TESTUSER").set({
+  sample1:{
+    ŠwK“ú:new Date(),
+    ŠwKi’»:true,
+    "q1":document.getElementsByClassName('result').value,
+    "q2":document.getElementsByClassName('result').value,
+    "q3":document.getElementsByClassName('result').value,
+  }
+})
+.then(function() {
+console.log("Document successfully written!");
+})
+.catch(function(error) {
+console.error("Error writing document: ", error);
+});
+
+</script>
+
+  </body>
+</html>
