@@ -122,19 +122,21 @@ docRef.get().then(function(doc) {
   myMess    = myMess1 + " " + myMess2 + " " + myMess3;
 
 // サイトから送信データを試す
-usersRef.doc("テストユーザ").set({
+usersRef.doc(document.getElementsByName("氏名")).set({
       sample1:{
-        学習日:new Date("May 27, 2019"),
-        学習進捗:true,
-        "q1-1":true,
-        "q1-2":false,
+        //document.write(location.pathname)を入れたいがそのまま入れるとエラーになる。
+        学習日:document.write(location.pathname),
+        学習進捗:document.getElementById("進捗").value,
+        "q1-1":document.getElementById("q1-1").value,
+        "q1-2":document.getElementById("q1-2").value,
+        //ここは問題の数に応じてforループで回せば良さそう
       },
       sample2:{
-        学習日:new Date("june 1, 2019"),
-        学習進捗:true,
-        "q1-1":true,
-        "q1-2":true,
-        "q2-1":true,
+        学習日:document.write(location.pathname),
+        学習進捗:document.getElementById("進捗").value,
+        "q1-1":document.getElementById("q1-1").value,
+        "q1-2":document.getElementById("q1-2").value,
+        "q2-1":document.getElementById("q2-1").value,
       },
     },{merge: true})
 .then(function() {
@@ -167,8 +169,8 @@ usersRef.doc("テストユーザ").set({
       日付：<script>document.write(myMess);</script></br>
 
      進捗：
-       <input type="radio" name="進捗" value="true"> 済
-       <input type="radio" name="進捗" value="false"> 未</br>       
+       <input type="radio" id="進捗" value="true"> 済
+       <input type="radio" id="進捗" value="false"> 未</br>       
 
        <button onclick="datasend()">送信する</button>
       </p>
