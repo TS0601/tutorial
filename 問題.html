@@ -40,6 +40,23 @@ myTbl     = new Array("日","月","火","水","木","金","土");
   myMess3   = myHours + "時" + myMinutes + "分" + mySeconds + "秒";
   myMess    = myMess1 + " " + myMess2 + " " + myMess3;
 
+// URL文字列からページ文字列を取得する
+var getPageStr = function(url) {
+    // URL文字列を「/」区切りで分解
+    var arg = url.split("/");
+    // 末尾の要素を取り出し
+    var ret = arg.slice(-1)[0];
+    // 末尾が空の場合は更に一つ前の要素を取り出し
+    if(ret === "" && arg.length > 1) {
+        ret = arg.slice(-2)[0];
+    }
+    // ?, #, &より前の要素のみを取り出し
+    ret = ret.split("?")[0];
+    ret = ret.split("#")[0];
+    ret = ret.split("&")[0];
+	return ret;
+};
+
 </script>
 
  </head>
@@ -182,25 +199,41 @@ var answer = function(question_id) {
 	}
 	
 	document.getElementById("Answer" + question_id).innerHTML = (result ? "<p class='result' value='true'>正解!!(*'ω'*)</p>" : "<p class='result' value='false'>不正解･･･(´;ω;｀)</p>");
+
+  send(question_id, result);
+
 };
+
+
+
+//データの定義
+
+var send = function(question_id,judge){
+
+  var sample = {
+    学習日:new Date(),
+    学習進捗:true,
+};
+eval("sample.q" + question_id + " = " + judge + ";");
+
 
 //データの送信
 
 usersRef.doc("TESTUSER").set({
-  sample1:{
-    学習日:new Date(),
-    学習進捗:true,
-    "q1":document.getElementsByClassName('result').value,
-    "q2":document.getElementsByClassName('result').value,
-    "q3":document.getElementsByClassName('result').value,
-  }
-})
+  sample
+},
+
+//データが書けたかどうかの判定
+
+{merge: true})
 .then(function() {
 console.log("Document successfully written!");
 })
 .catch(function(error) {
 console.error("Error writing document: ", error);
 });
+
+}
 
 </script>
 
