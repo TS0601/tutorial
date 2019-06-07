@@ -204,7 +204,9 @@ var answer = function(question_id) {
 
 };
 
-
+</script>
+-----------
+<script>
 
 //データの定義
 
@@ -214,15 +216,15 @@ var send = function(question_id,judge){
     学習日:new Date(),
     学習進捗:true,
 };
-eval("sample.q" + question_id + " = " + judge + ";");
-
+//eval("sample.q" + question_id + " = " + judge + ";");
+sample["q"+question_id] = judge;
+//sample["url"]= location.pathname;
 
 //データの送信
 
 usersRef.doc("TESTUSER").set({
   sample
 },
-
 //データが書けたかどうかの判定
 
 {merge: true})
