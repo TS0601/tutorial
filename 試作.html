@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>試作</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+
+<script>
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+    
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+var usersRef = db.collection("users");
+
+// Add a new document in collection "cities"
+usersRef.doc("テストユーザ").set({
+    問題URL: {
+      sample1:{
+        学習日:new Date("May 27, 2019"),
+        学習進捗:true,
+        "q1-1":true,
+        "q1-2":false,
+      },
+      sample2:{
+        学習日:new Date("june 1, 2019"),
+        学習進捗:true,
+        "q1-1":true,
+        "q1-2":true,
+        "q2-1":true,
+      },
+    },
+})
+.then(function() {
+    console.log("Document successfully written!");
+})
+.catch(function(error) {
+    console.error("Error writing document: ", error);
+});
+
+// 追加
+
+usersRef.doc("テストユーザ").set({
+  問題URL: {
+      sample1:{
+        "q1-3": true,
+      },
+      sample3:{
+        学習日:new Date("june 3, 2019"),
+        学習進捗:true,
+        "q1-1":false,
+        "q1-2":true,
+        "q2-1":false,
+      },
+    },
+  },
+  {merge: true}//重要
+  )
+.then(function() {
+    console.log("Document successfully updated!");
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+// 更新(処理はほとんど追加と同じ)
+
+usersRef.doc("テストユーザ").set({
+  問題URL: {
+      sample1:{
+        学習日:new Date("june 5, 2019"),
+        "q1-2": true,
+      },
+    },
+  },
+  {merge: true}//重要
+  )
+.then(function() {
+    console.log("Document successfully updated!");
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+// ドキュメントの取得
+
+var docRef = db.collection("users").doc("テストユーザ");
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+
+</script>
+
+  </head>
+  <body>
+    <p>Hello, world!</p>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>??</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+    <!-- FirebaseUI ‚?? -->
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+<script>
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+
+    var config = {
+           hoge
+    };
+    firebase.initializeApp(config);
+
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        ui.start('#firebaseui-auth-container', {
+            callbacks: {
+                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                    document.getElementById('firebaseui-auth-container').style.display = 'none';
+                    return true;
+                },
+            },
+            credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+        });
+
+        var db = firebase.firestore();
+
+    </script>
+
+  </head>
+  <body>  
+
+      <div id="firebaseui-auth-container"></div>
+
+  </body>
+</html>

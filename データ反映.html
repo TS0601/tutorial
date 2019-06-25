@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>問題</title>
+    <title>反映</title>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
 
@@ -57,12 +57,37 @@ var getPageStr = function(url) {
 	return ret;
 };
 
+//データ読み込み用の関数
+
+var docRef = db.collection("users").doc("TESTUSER");
+
+var lastanswer = {};
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        lastanswer = doc.data().sendArray[getPageStr(location.pathname)];
+        for(i=0;i<100;i++){
+            if (lastanswer["q"+i] !== undefined) {
+                document.getElementById("q-"+i).innerHTML = lastanswer["q"+i]? "<span style='color:green;'>前回正解</span>" : "<span style='color:red;'>前回不正解</span>";
+            }
+        }
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+
 </script>
 
  </head>
   <body>
 
 問1.A社はB社へ商品2,500円を売り上げ、代金はB社振出しの小切手で受け取った。
+
+<p id="q-1"></p>
+
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr bgcolor="#CCCCCC">
@@ -102,6 +127,8 @@ var getPageStr = function(url) {
 
 問2.A社はB社から受け取った小切手のうち、1,500円分を銀行で換金した。
 
+<p id="q-2"></p>
+
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr bgcolor="#CCCCCC">
@@ -139,6 +166,8 @@ var getPageStr = function(url) {
 <div id="Answer2"></div>
 
 問3.A社はC社から商品1,000円分を仕入れ、代金はB社から受け取った小切手で支払った。
+
+<p id="q-3"></p>
 
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
@@ -217,6 +246,13 @@ var send = function(question_id,judge){
     学習進捗:true,
 };
 sample["q"+question_id] = judge;
+//var answers = [];
+
+//q1 = {};
+//q1["q"+question_id] = judge;
+//answers.push(q1);
+
+//sample["answers"] = answers;
 
 //データの送信
 var url = getPageStr(location.pathname);
