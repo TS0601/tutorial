@@ -1,0 +1,28 @@
+﻿<script>
+var is_check = function(id){
+	return document.getElementById(id).checked;
+};
+
+var answer = function(question_id) {
+	var result = true;
+
+	switch(question_id){
+	case 1:
+		result = (document.getElementById("q1-1").value == "当座預金" && document.getElementById("q1-2").value == "1,000" && document.getElementById("q1-3").value == "現金" && document.getElementById("q1-4").value == "1,000");
+		break;
+
+	case 2:
+		result = (document.getElementById("q2-1").value == "買掛金" && document.getElementById("q2-2").value == "500" && document.getElementById("q2-3").value == "当座預金" && document.getElementById("q2-4").value == "500");
+		break;
+
+	case 3:
+		result = (document.getElementById("q3-1").value == "当座預金" && document.getElementById("q3-2").value == "300" && document.getElementById("q3-3").value == "売上" && document.getElementById("q3-4").value == "300");
+		break;
+
+	}
+	
+	document.getElementById("Answer" + question_id).innerHTML = (result ? "<p class='result' value='true'>正解!!(*'ω'*)</p>" : "<p class='result' value='false'>不正解･･･(´;ω;｀)</p>");
+
+  send(question_id, result);
+};
+</script>

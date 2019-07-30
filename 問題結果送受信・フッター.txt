@@ -1,0 +1,37 @@
+﻿<!-- FireBase関連 -->
+
+<script>
+
+//データの定義
+
+var send = function(question_id,judge){
+
+  var sample = {
+    学習日:new Date(),
+  };
+  sample["q"+question_id] = judge;
+
+
+////データの送信
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+	var url = getPageStr(location.pathname);
+	var sendArray = {};
+        sendArray[url] = sample;
+        usersRef.doc(user.uid).set(
+        {sendArray},
+//データが書けたかどうかの判定
+
+        {merge: true})
+        .then(function() {
+        console.log("Document successfully written!");
+        })
+	.catch(function(error) {
+        console.error("Error writing document: ", error);
+        });
+  }
+
+	  });
+}
+</script>

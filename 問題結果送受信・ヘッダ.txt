@@ -1,0 +1,130 @@
+﻿<!-- FireBase関連 -->
+
+　　<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+　　<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+<script>
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+    
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+var usersRef = db.collection("users");
+
+//日付取得
+
+myTbl     = new Array("日","月","火","水","木","金","土");
+  myD       = new Date();
+  myYear    = myD.getYear()
+  myYear4   = (myYear < 2000) ? myYear+1900 : myYear;
+  myMonth   = myD.getMonth() + 1;
+  myDate    = myD.getDate();
+  myDay     = myD.getDay();
+  myHours   = myD.getHours();
+  myMinutes = myD.getMinutes();
+  mySeconds = myD.getSeconds();
+
+  myMess1   = myYear4 + "年" + myMonth + "月" + myDate + "日";
+  myMess2   = myTbl[myDay] + "曜日";
+  myMess3   = myHours + "時" + myMinutes + "分" + mySeconds + "秒";
+  myMess    = myMess1 + " " + myMess2 + " " + myMess3;
+
+// URL文字列からページ文字列を取得する
+var getPageStr = function(url) {
+    // URL文字列を「/」区切りで分解
+    var arg = url.split("/");
+    // 末尾の要素を取り出し
+    var ret = arg.slice(-1)[0];
+    // 末尾が空の場合は更に一つ前の要素を取り出し
+    if(ret === "" && arg.length > 1) {
+        ret = arg.slice(-2)[0];
+    }
+    // ?, #, &より前の要素のみを取り出し
+    ret = ret.split("?")[0];
+    ret = ret.split("#")[0];
+    ret = ret.split("&")[0];
+	return ret;
+};
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    //データ読み込み用の関数
+    var docRef = db.collection("users").doc(user.uid);
+    
+    var lastanswer = {};
+    
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            lastanswer = doc.data().sendArray[getPageStr(location.pathname)];
+            for(i=0;i<100;i++){
+                if (lastanswer["q"+i] !== undefined) {
+                    document.getElementById("q-"+i).innerHTML = lastanswer["q"+i]? "<span style='color:blue;'>前回正解</span>" : "<span style='color:red;'>前回不正解</span>";
+                }
+            }
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  } else {
+    console.log("認証していません");
+  }
+});
+
+//URLから正解数等を取得	
+	
+	
+function getanswerrate(targetURL,countID,progressID,accessTIMEID){
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var docRef = db.collection("users").doc(user.uid);	
+      var j= 0;
+      var progress= false;
+      docRef.get().then(function(doc) {
+        if (doc.exists) {
+          lastanswer = doc.data().sendArray[getPageStr(targetURL)];
+          for(i=0;i<100;i++){
+            if (lastanswer["q"+i] !== undefined) {
+              progress= true;
+              if(lastanswer["q"+i] == true){
+                j ++;
+              }
+            }
+          }
+	  if (progress){
+            document.getElementById(progressID).innerHTML = "<span style='color:green;'>済</span>"; 
+	    var ts = lastanswer["学習日"].seconds;
+            var d = new Date( ts * 1000 );
+            var year  = d.getFullYear();
+            var month = d.getMonth() + 1;
+            var day  = d.getDate();
+            var hour = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+            var min  = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+            var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();		  
+	    document.getElementById(accessTIMEID).innerHTML = year + '年' + month + '月' + day + '日' + '<br>' + hour + '時' + min + '分'; 
+	  }
+          document.getElementById(countID).innerHTML = j; 
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch(function(error) {
+        console.log("Error getting document:", error);
+      });	  
+    }
+  });
+}
+	
+</script>

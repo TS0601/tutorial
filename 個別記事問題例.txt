@@ -1,0 +1,130 @@
+﻿<div class="question">
+
+[日商簿記3級-仕訳問題導入文]
+
+勘定科目：[現金][当座預金][買掛金][売掛金][売上][仕入]
+
+問1.越前商事は福井銀行と当座取引契約を結び、現金1,000円を当座預金口座に預け入れた。
+
+<p id="q-1"></p>
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">借方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+<td style="width: 25%; text-align: center;">貸方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q1-1" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q1-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q1-3" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q1-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+
+<button onclick="answer(1)">回答する</button>
+<div id="Answer1"></div>
+
+問2.越前商事は鯖江商事への買掛金500円を小切手を振り出して支払った
+
+<p id="q-2"></p>
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">借方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+<td style="width: 25%; text-align: center;">貸方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q2-1" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q2-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q2-3" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q2-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+
+<button onclick="answer(2)">回答する</button>
+<div id="Answer2"></div>
+
+問3.越前商事は鯖江商事に商品300円を売り上げ、代金として自己振出小切手を受け取った。
+
+<p id="q-3"></p>
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr bgcolor="#CCCCCC">
+<td style="width: 25%; text-align: center;">借方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+<td style="width: 25%; text-align: center;">貸方</td>
+<td style="width: 25%; text-align: center;">金額</td>
+</tr>
+<tr>
+<td style="width: 25%; text-align: center;"><select id="q3-1" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q3-2" style="width:100px;"></td>
+<td style="width: 25%; text-align: center;"><select id="q3-3" >
+<option value=""></option>
+<option value="現金">現金</option>
+<option value="当座預金">当座預金</option>
+<option value="買掛金">買掛金</option>
+<option value="売掛金">売掛金</option>
+<option value="売上">売上</option>
+<option value="仕入">仕入</option>
+</select></td>
+<td style="width: 25%; text-align: center;"><input type="text" id="q3-4" style="width:100px;"></td>
+</tr>
+</tbody>
+</table>
+
+
+<button onclick="answer(3)">回答する</button>
+<div id="Answer3"></div>
+
+</div>
