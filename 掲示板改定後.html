@@ -1,0 +1,199 @@
+﻿<!-- FireBase関連 -->
+
+　　<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+　　<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+<script>
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+    
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+var BBSRef = db.collection("bbs");
+
+//日付取得
+
+myTbl     = new Array("日","月","火","水","木","金","土");
+  myD       = new Date();
+  myYear    = myD.getYear()
+  myYear4   = (myYear < 2000) ? myYear+1900 : myYear;
+  myMonth   = myD.getMonth() + 1;
+  myDate    = myD.getDate();
+  myDay     = myD.getDay();
+  myHours   = myD.getHours();
+  myMinutes = myD.getMinutes();
+  mySeconds = myD.getSeconds();
+
+  myMess1   = myYear4 + "年" + myMonth + "月" + myDate + "日";
+  myMess2   = myTbl[myDay] + "曜日";
+  myMess3   = myHours + "時" + myMinutes + "分" + mySeconds + "秒";
+  myMess    = myMess1 + " " + myMess2 + " " + myMess3;
+
+// URL文字列からページ文字列を取得する
+var getPageStr = function(url) {
+    // URL文字列を「/」区切りで分解
+    var arg = url.split("/");
+    // 末尾の要素を取り出し
+    var ret = arg.slice(-1)[0];
+    // 末尾が空の場合は更に一つ前の要素を取り出し
+    if(ret === "" && arg.length > 1) {
+        ret = arg.slice(-2)[0];
+    }
+    // ?, #, &より前の要素のみを取り出し
+    ret = ret.split("?")[0];
+    ret = ret.split("#")[0];
+    ret = ret.split("&")[0];
+	return ret;
+};
+
+firebase.auth().onAuthStateChanged(function(BBS) {
+  if (BBS) {
+    //データ読み込み用の関数
+    var docRef = db.collection("BBS").doc(URL.id);
+    
+    var lastanswer = {};
+    
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            lastanswer = doc.data().sendArray[getPageStr(location.pathname)];
+            for(i=0;i<100;i++){
+                if (lastanswer["q"+i] !== undefined) {
+                    document.getElementById("q-"+i).innerHTML = lastanswer["q"+i]? "<span style='color:blue;'>前回正解</span>" : "<span style='color:red;'>前回不正解</span>";
+                }
+            }
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  } else {
+    console.log("認証していません");
+  }
+});
+
+</script>
+
+<h2>新規投稿</h2>
+
+名前: <input id="bbs-name" style="width: 100%;" name="name" type="text" value="" />
+本文: </br><textarea id="bbs-contents" name="kanso" rows="4" cols="40" style="width: 100%;">ここに投稿文を記入してください。</textarea>
+
+<button id="bbs-submit" type="submit" onclick="exec_submit()">投稿</button>
+
+<h2>投稿一覧</h2>
+
+<ul id="contents_list"></ul>
+
+<script>
+
+var exec_submit = function(){
+
+  var bbsName = document.getElementById("bbs-name").value;
+  var bbsContents = document.getElementById("bbs-contents").value;
+
+  bbssend(bbsName,bbsContents);
+  location.reload();
+}
+
+//BBS用データの定義
+
+var bbssend = function(username,contents){
+
+  var BBSsample = {
+    username,
+    contents,
+    投稿日:new Date(),
+  };
+
+  //BBS用データの送信
+
+  db.collection('fp3').add(
+
+    {BBSsample}
+  )
+  .then(function() {
+    console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+    console.error("Error writing document: ", error);
+  });
+}
+
+//BBS用データの読み込み
+
+const fp3bbs = db.collection('fp3');
+
+//getPageStr(location.pathname)
+
+console.log(getPageStr(location.pathname));
+
+fp3bbs.orderBy("BBSsample.投稿日", "asc").get().then(function(querySnapshot) {
+  console.log(querySnapshot.docs);
+  querySnapshot.forEach(function(doc) {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    var fp3bbs = document.createElement("li");
+
+    function createTable(index)
+　　{
+  var tbl = document.createElement('table');
+  tbl.style.width = '100%';
+  tbl.setAttribute('border', '1');
+  var tbdy = document.createElement('tbody');
+  tbl.setAttribute('id', 'myTable'+index);
+  var body = document.getElementsByTagName('body')[0];
+  body.appendChild(tbl)
+
+  var x,y;
+
+    x=document.getElementById('myTable'+index).insertRow(0);
+      y=  x.insertCell(0);
+     y.innerHTML="投稿者名";
+     y=  x.insertCell(1);
+     y.innerHTML=doc.data().BBSsample.username;  
+
+    x=document.getElementById('myTable'+index).insertRow(1);
+     y=  x.insertCell(0);
+     y.innerHTML="投稿内容"; 
+     y=  x.insertCell(1);
+     y.innerHTML=doc.data().BBSsample.contents; 
+
+     x=document.getElementById('myTable'+index).insertRow(2);
+      y=  x.insertCell(0);
+     y.innerHTML="投稿日"; 
+     y=  x.insertCell(1);
+     y.innerHTML=doc.data().BBSsample.投稿日.seconds; 
+
+     var ts = doc.data().BBSsample.投稿日.seconds;
+     var d = new Date( ts * 1000 );
+var year  = d.getFullYear();
+var month = d.getMonth() + 1;
+var day  = d.getDate();
+var hour = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+var min  = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
+console.log( year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec );
+
+}
+
+createTable(doc.id);
+
+    fp3bbs.innerHTML     = doc.data().BBSsample.username;
+    var contents_list = document.getElementById("contents_list");
+    contents_list.appendChild(fp3bbs);
+  });
+});
+
+</script>
