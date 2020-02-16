@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="memo送受信Style.css" />
+  <title>memo削除・イイネ機能</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <!-- FireBase関連 -->
+
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+
+    var db = firebase.firestore();
+
+    var create_fusen;
+
+  </script>
+
+  <!-- メモの書き込み処理 -->
+
+  <script>
+    window.onload = function () {
+      document.body.addEventListener('contextmenu', function (e) {
+        document.getElementById('contextmenu').style.left = e.pageX + "px";
+        document.getElementById('contextmenu').style.top = e.pageY + "px";
+        document.getElementById('contextmenu').style.display = "block";
+      });
+      document.body.addEventListener('click', function (e) {
+        document.getElementById('contextmenu').style.display = "none";
+      });
+    }
+
+    function menu1() {
+      const selectedText = document.getSelection().toString();
+      document.getElementById("selectedText").value = selectedText;
+      document.getElementById('contextmenu').getClientRects()[0].left;
+      console.log(document.getElementById('contextmenu').getClientRects());
+      contextmenu = document.getElementById('contextmenu').getClientRects()[0];
+
+      document.getElementById('memoarea').style.left = contextmenu.left + "px";
+      document.getElementById('memoarea').style.top = contextmenu.top + "px";
+      document.getElementById('memoarea').style.display = "block";
+
+    }
+    function menu2() {
+      alert("文字をコピーしました");
+      const selectedText = document.getSelection().toString();
+      document.getElementById("selectedText").value = selectedText;
+      var copytext = document.execCommand('copy');
+    }
+    function menu3() {
+      alert("間違い内容を教えて下さい");
+    }
+
+    //メモを送る関数
+
+    function send_memo() {
+
+      //内容が空の時は警告
+
+      if (document.getElementById("memocontents").value == "") {
+
+        alert("メモ内容を入力してください。");
+
+      } else {
+
+        // メモを入力する処理
+        document.getElementById("memocontents").value;
+        console.log(document.getElementById("memocontents").value);
+        console.log(document.getElementById("selectedText").value);
+        document.getElementById('memoarea').style.display = "none";
+
+        //　メモの送信
+
+        var memo_send = {
+          "イイネ数": 0,//初期値0
+          "メモ内容": document.getElementById("memocontents").value,
+          "ユーザID": "SQfMMIW4QLOHcbvKpcG2NVxYbj13",//取りあえず固定
+          "文章該当位置": document.getElementById("selectedText").value,
+        };
+
+        //BBS用データの送信
+
+        db.collection("experiment-fusen").doc("memoadd").update({
+          memo_array: firebase.firestore.FieldValue.arrayUnion(memo_send)
+        })
+
+      }
+
+      // メモをクリアする処理
+      document.getElementById("memocontents").value = '';
+
+      //リロード
+
+      setTimeout(function () {
+        location.reload();
+      }, 500);
+
+    }
+
+    //メモを削除する
+
+    function deletememo(count, content, userId, position) {
+
+      var memo_delete = {
+        "イイネ数": count,
+        'メモ内容': content,
+        'ユーザID': userId,
+        '文章該当位置': position,
+      };
+      console.log(memo_delete)
+
+      db.collection("experiment-fusen").doc("memoadd").update({
+        memo_array: firebase.firestore.FieldValue.arrayRemove(memo_delete)
+      })
+
+      //リロード
+
+      setTimeout(function () {
+        location.reload();
+      }, 500);
+
+    }
+
+    //メモを編集する
+
+    function revision_memo() {
+
+    }
+
+    //イイネを追加する
+
+    function iineplus(count, content, userId, position) {
+
+      //元のデータを削除する
+
+      var memo_delete_iine = {
+        "イイネ数": count,
+        'メモ内容': content,
+        'ユーザID': userId,
+        '文章該当位置': position,
+      };
+
+      //イイネが1増えた新しいデータの定義
+
+      var plus_iine = {
+        "イイネ数": count += 1,
+        'メモ内容': content,
+        'ユーザID': userId,
+        '文章該当位置': position,
+      };
+      console.log(plus_iine)
+
+      //元データの削除
+
+      db.collection("experiment-fusen").doc("memoadd").update({
+        memo_array: firebase.firestore.FieldValue.arrayRemove(memo_delete_iine)
+      })
+
+      //BBS用データの送信
+
+      db.collection("experiment-fusen").doc("memoadd").update({
+        memo_array: firebase.firestore.FieldValue.arrayUnion(plus_iine)
+      })
+
+      //リロード
+
+      setTimeout(function () {
+        location.reload();
+      }, 500);
+
+    }
+
+    // メモを閉じる
+    function close_memo() {
+      document.getElementById('memoarea').style.display = "none";
+    }
+
+  </script>
+
+</head>
+
+<body onContextmenu="return false;">
+  <main>
+
+    <h2>返品とは</h2>
+
+    <p>
+      取引が終わり無事にお互い満足して・・・なら良いのですが、物を扱う以上そうすんなり終わる事ばかりでもありません。
+      不良品や店側の手違いでお客さんが満足せず、品物が返品されることもあります。 返品は主に店側の過失によりお客さんから物を戻されたときに行う処理です。
+    </p>
+
+    <div id="contextmenu">
+
+      <button onClick="menu1()" class="list-decoration">メモを書き込む</button>
+      <button onClick="menu2()" class="list-decoration">文字をコピーする</button>
+      <button onClick="menu3()" class="list-decoration">間違いを報告する</button>
+
+    </div>
+
+    <div id="memoarea">
+      <div class="cancel" onclick="close_memo()"></div>
+      <p>
+        <font color="red">メモの内容を入力してください。</font>
+      </p>
+      <input type="hidden" id="selectedText" name="selectedText" value="">
+
+      <textarea id="memocontents" cols="30" rows="4"></textarea>
+      <button onClick="send_memo()">メモを書き込む</button>
+    </div>
+
+  </main>
+  <script>
+    $(function () {
+
+      //テキストを読み込む関数
+
+      // 要素への参照を取得
+      var textMsg = document.getElementsByTagName("main");
+      // コンソールにテキストを表示
+      console.log(textMsg[0].innerHTML);
+
+      var memo = new Array();
+      let fusen = new Array();
+
+      // windowをリサイズした時に実行される関数
+      function resize(data) {
+
+        let memo_style = '';
+
+        for (let i = 0; i < data.memo_array.length; i++) {
+          if (memo[i].getClientRects()[0].left > 400) {
+            memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top + window.pageYOffset}px; left:${memo[i].getClientRects()[0].left - 200}px; display: ${fusen[i].style.display}`;
+            fusen[i].setAttribute("style", memo_style);
+          } else {
+            memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top + window.pageYOffset}px; left:${memo[i].getClientRects()[0].left}px; display: ${fusen[i].style.display}`;
+            fusen[i].setAttribute("style", memo_style);
+          }
+
+        }
+      }
+
+      //FireBaseからの読み込み
+
+      const get_fusen = db.collection("experiment-fusen").doc("memoadd");
+
+      //合わせるときは1つに
+      var main = document.getElementsByTagName('main')[0];
+      var i = 0
+
+      // var docRef = db.collection("experiment-fusen");
+
+      get_fusen.get().then(function (doc) {
+
+        //<span>タグの挿入
+        doc.data().memo_array.forEach(function (data, j) {
+          textMsg[0].innerHTML = textMsg[0].innerHTML.replace(data.文章該当位置, '<span class="memo' + j + ' under-line">' + data.文章該当位置 + '</span>');
+        })
+
+        //付箋の作成
+        doc.data().memo_array.forEach(function (data, k) {
+          create_fusen = document.createElement('div')
+          create_fusen.innerHTML = data.メモ内容 + `<br><br><button onClick="iineplus(${data.イイネ数}, '${data.メモ内容}', '${data.ユーザID}', '${data.文章該当位置}')">👍：` + data.イイネ数 + `</button><br><br><button onClick="deletememo(${data.イイネ数}, '${data.メモ内容}', '${data.ユーザID}', '${data.文章該当位置}')">メモを削除する</button>` + '<button onClick="revision_memo()">メモを修正する</button>';
+          create_fusen.classList.add('test' + k, 'fusen');
+          main.appendChild(create_fusen);
+
+        })
+
+
+
+        fusen_control(doc.data());
+
+        // onresizeイベントにresize関数を設定する
+        window.onresize = resize(doc.data());
+
+      })
+
+      function fusen_control(data) {
+
+        for (let i = 0; i < data.memo_array.length; i++) {
+
+          memo.push(document.querySelector(".memo" + i));
+          fusen.push(document.querySelector("div.test" + i));
+
+        }
+
+        // クリックされた時に付箋の表示を制御する
+        for (let i = 0; i < memo.length; i++) {
+
+          memo[i].addEventListener('click', event => {
+            $(fusen[i]).toggle();
+          });
+          fusen[i].addEventListener('click', event => {
+            $(fusen[i]).toggle();
+          });
+
+        }
+
+        // 画面描画時に付箋の位置を計算する
+        resize(data);
+      }
+
+    });
+
+  </script>
+</body>
+
+</html>

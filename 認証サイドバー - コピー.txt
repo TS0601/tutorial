@@ -56,7 +56,7 @@ document.getElementById("bbs-submit");
       draw: function(){
         AuthUI.elAuthBtn.textContent = AuthUI.data.authed ? 'LOGOUT' : 'LOGIN';
         if(AuthUI.elBbsBtn){
-          AuthUI.elBbsBtn.textContent = AuthUI.data.authed ? '投稿' : 'Googleアカウントでログインして下さい。';
+          AuthUI.elBbsBtn.innerHTML = AuthUI.data.authed ? '<button type="submit" onclick="exec_submit()">投稿</button>' : '投稿するにはGoogleアカウントでログインして下さい';
         }
         if(AuthUI.data.userId){
         AuthUI.elUserId.textContent = 'こんにちは、' + AuthUI.data.userId + 'さん';

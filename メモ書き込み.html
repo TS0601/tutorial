@@ -1,0 +1,150 @@
+<html>
+
+<head>
+
+  <style>
+    #contextmenu {
+      display: none;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 200px;
+      height: 100px;
+      /* border: 1px solid #000; */
+      /* background-color: #fff; */
+      list-style: none;
+      /* デフォルトのアイコンを消す */
+      margin: 0;
+      /* デフォルト指定上書き */
+      padding: 0;
+      /* デフォルト指定上書き */
+
+    }
+
+
+
+    #contextmenu button {
+      cursor: pointer;
+
+      color: black;
+      border-left: solid 8px orange;
+      /*左側の線*/
+      background: whitesmoke;
+      /*背景色*/
+      margin-bottom: 5px;
+      /*下のバーとの余白*/
+      line-height: 1.5;
+      border-radius: 0 15px 15px 0;
+      /*右側の角だけ丸く*/
+      padding: 0.5em;
+      list-style-type: none !important;
+    }
+
+    #memoarea {
+      display: none;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      /* width: 200px; */
+      /* height: 100px; */
+      /* border: 1px solid #000; */
+      /* background-color: #ff0000;  */
+      list-style: none;
+      /* デフォルトのアイコンを消す */
+      margin: 0;
+      /* デフォルト指定上書き */
+      padding: 0;
+      /* デフォルト指定上書き */
+      min-width: 200px;
+      /* white-space: pre-wrap; */
+      font-size: 0.9em;
+      margin: 1.6em 0;
+      padding: 1em;
+      position: absolute;
+      /* グラデーションで折り目がついた感じに */
+      background: linear-gradient(to right, #ffffcc 0%, #f1f1c1 0.5%, #f1f1c1 13%, #ffffcc 16%);
+    }
+
+    #memoarea::after {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      bottom: 5px;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+      transform: rotate(2deg);
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      document.body.addEventListener('contextmenu', function (e) {
+        document.getElementById('contextmenu').style.left = e.pageX + "px";
+        document.getElementById('contextmenu').style.top = e.pageY + "px";
+        document.getElementById('contextmenu').style.display = "block";
+      });
+      document.body.addEventListener('click', function (e) {
+        document.getElementById('contextmenu').style.display = "none";
+      });
+    }
+
+    function menu1() {
+      // alert("メモを書きこんでください");
+      const selectedText = document.getSelection().toString();
+      // console.log(selectedText);
+      document.getElementById("selectedText").value = selectedText;
+      document.getElementById('contextmenu').getClientRects()[0].left;
+      console.log(document.getElementById('contextmenu').getClientRects());
+      contextmenu = document.getElementById('contextmenu').getClientRects()[0];
+
+      document.getElementById('memoarea').style.left = contextmenu.left + "px";
+      document.getElementById('memoarea').style.top = contextmenu.top + "px";
+      document.getElementById('memoarea').style.display = "block";
+
+    }
+    function menu2() {
+      alert("文字をコピーしました");
+    }
+    function menu3() {
+      alert("間違い内容を教えて下さい");
+    }
+    function send_memo() {
+      document.getElementById("memocontents").value;
+      console.log(document.getElementById("memocontents").value);
+
+      console.log(document.getElementById("selectedText").value);
+      document.getElementById('memoarea').style.display = "none";
+
+    }
+
+  </script>
+</head>
+
+<body onContextmenu="return false;">
+
+  <h2>返品とは</h2>
+  取引が終わり無事にお互い満足して・・・なら良いのですが、物を扱う以上そうすんなり終わる事ばかりでもありません。 不良品や店側の手違いでお客さんが満足せず、品物が返品されることもあります。
+  返品は主に店側の過失によりお客さんから物を戻されたときに行う処理です。
+
+  <div id="contextmenu">
+
+    <button onClick="menu1()" class="list-decoration">メモを書き込む</button>
+    <button onClick="menu2()" class="list-decoration">文字をコピーする</button>
+    <button onClick="menu3()" class="list-decoration">間違いを報告する</button>
+
+  </div>
+
+  <div id="memoarea">
+    <p><font color="red">メモの内容を入力してください。</font></p>
+    <input type="hidden" id="selectedText" name="selectedText" value="">
+
+    <textarea id="memocontents" cols="30" rows="4"></textarea>
+    <button onClick="send_memo()">メモを書き込む</button>
+
+
+
+  </div>
+</body>
+
+</html>

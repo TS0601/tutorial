@@ -1,0 +1,261 @@
+﻿<!doctype html>
+
+<html lang="ja">
+
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+
+//dot-red
+
+    $(window).scroll(function () {
+      $(".dot-red").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+//dot-green
+
+    $(window).scroll(function () {
+      $(".dot-green").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+    //dot-orange
+
+    $(window).scroll(function () {
+      $(".dot-orange").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+//dash-deeppink
+
+    $(window).scroll(function () {
+      $(".dash-deeppink").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+//dash-yellow
+
+$(window).scroll(function () {
+      $(".dash-yellow").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+//dash-blue
+
+    $(window).scroll(function () {
+      $(".dash-blue").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+    //double-aqua
+
+    $(window).scroll(function () {
+      $(".double-aqua").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+//wavy-violet
+
+    $(window).scroll(function () {
+      $(".wavy-violet").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+    //underline-gray
+
+    $(window).scroll(function () {
+      $(".underline-gray").each(function () {
+        var position = $(this).offset().top; //ページの一番上から要素までの距離を取得
+        var scroll = $(window).scrollTop(); //スクロールの位置を取得
+        var windowHeight = $(window).height(); //ウインドウの高さを取得
+        if (scroll > position - windowHeight) { //スクロール位置が要素の位置を過ぎたとき
+          $(this).addClass('active'); //クラス「active」を与える
+        }
+      });
+    });
+
+  </script>
+
+  <meta charset="utf-8">
+
+  <style>
+    .dot-red.active {
+      background-position: -100% .5em;
+      border-bottom: dotted 2px red;
+
+    }
+
+    .dot-red {
+      border-bottom: dotted 0px red;
+      transition: all 1s ease 3s;
+
+    }
+
+    .dot-green.active {
+      background-position: -100% .5em;
+      border-bottom: dotted 3px green;
+    }
+
+    .dot-green {
+      border-bottom: dotted 0px green;
+      transition: all 2s ease 4s;
+
+    }
+
+    .dot-orange.active {
+      background-position: -100% .5em;
+      border-bottom: dotted 4px orange;
+    }
+
+    .dot-orange {
+      border-bottom: dotted 0px orange;
+      transition: all 3s ease 5s;
+    }
+
+    .dash-deeppink.active {
+      background-position: -100% .5em;
+      border-bottom: dashed 2px deeppink;
+    }
+
+    .dash-deeppink {
+      border-bottom: dashed 0px deeppink;
+      transition: all 4s ease 6s;
+    }
+
+    .dash-yellow.active {
+      background-position: -100% .5em;
+      border-bottom: dashed 3px yellow;
+    }
+
+    .dash-yellow {
+      border-bottom: dashed 0px yellow;
+      transition: all 5s ease 7s;
+    }
+
+    .dash-blue.active {
+      background-position: -100% .5em;
+      border-bottom: dashed 4px blue;
+    }
+
+    .dash-blue {
+      border-bottom: dashed 0px blue;
+      transition: all 6s ease 8s;
+    }
+
+    .double-aqua.active {
+      background-position: -100% .5em;
+      border-bottom: double 3px aqua;
+    }
+
+    .double-aqua {
+      border-bottom: double 0px aqua;
+      transition: all 7s ease 9s;
+    }
+
+    .wavy-violet.active {
+      background-position: -100% .5em;
+      text-decoration: underline wavy violet;
+    }
+
+    .wavy-violet {
+      text-decoration: underline wavy white;
+      transition: all 8s ease 10s;
+    }
+
+    .underline-gray.active {
+      background-position: -100% .5em;
+      text-decoration: underline solid gray;
+    }
+
+    .underline-gray {
+      text-decoration: underline solid white;
+      transition: all 9s ease 11s;
+    }
+  </style>
+
+  <title>手書きCSS実験</title>
+
+</head>
+
+<body>
+a<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <span class="underline-gray">あいうえお
+    <span class="wavy-violet">かきくけこ
+      <span class="double-aqua">さしすせそ
+        <span class="dash-blue">たちつてと
+          <span class="dash-yellow">なにぬねの
+            <span class="dash-deeppink">はひふへほ
+              <span class="dot-orange">まみむめも
+                <span class="dot-green">やゆよ
+                  <span class="dot-red">わをん</span></span></span></span></span></span></span></span></span><br><br>
+
+  <span class="dot-red">あいうえお
+    <span class="dot-green">かきくけこ
+      <span class="dot-orange">さしすせそ
+        <span class="dash-deeppink">たちつてと
+          <span class="dash-yellow">なにぬねの
+            <span class="dash-blue">はひふへほ
+              <span class="double-aqua">まみむめも
+                <span class="wavy-violet">やゆよ
+                  <span
+                    class="underline-gray">わをん</span></span></span></span></span></span></span></span></span><br><br>
+
+  あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよわをん<br><br>
+
+  あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよわをん<br><br>
+
+  あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよわをん<br><br>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="memotestStyle.css" />
+  <title>memo-firebaseデータ送信</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <!-- FireBase関連 -->
+
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+
+    var db = firebase.firestore();
+
+    var create_fusen;
+
+  </script>
+
+</head>
+
+<body>
+  <main>
+    <!-- <div class="fusen" style="padding-left: 60px;"> -->
+    <h2>返品とは</h2>
+
+    <p>
+      取引が終わり無事にお互い満足して・・・なら良いのですが、物を扱う以上そうすんなり終わる事ばかりでもありません。
+      不良品や店側の手違いでお客さんが満足せず、品物が返品されることもあります。 返品は主に店側の過失によりお客さんから物を戻されたときに行う処理です。
+    </p>
+
+  </main>
+  <script>
+
+    var memo0 = {
+      "イイネ数": 4,
+      "メモ内容": "壊れものや欠陥品",
+      "ユーザID": "SQfMMIW4QLOHcbvKpcG2NVxYbj13",
+      "文章該当位置": "不良品",
+    };
+
+    //BBS用データの送信
+
+    db.collection("experiment-fusen").doc("memoadd").update({
+      memo_array: firebase.firestore.FieldValue.arrayUnion(memo0)
+    })
+
+  </script>
+</body>
+
+</html>

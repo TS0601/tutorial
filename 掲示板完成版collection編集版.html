@@ -106,6 +106,8 @@
 <h2>投稿一覧</h2>
 
 <script>
+
+  //BBS用
   var exec_submit = function () {
 
     var bbsName = document.getElementById("bbs-name").value;
@@ -132,7 +134,7 @@
 
     //BBS用データの送信
 
-    db.collection('fp3').add(
+    db.collection(getPageStr(location.pathname)).add(
 
         {
           BBSsample
@@ -148,7 +150,7 @@
 
   //BBS用データの読み込み
 
-  const qualificationbbs = db.collection('fp3');
+  const qualificationbbs = db.collection(getPageStr(location.pathname));
 
 
   qualificationbbs.orderBy("BBSsample.投稿日", "asc").get().then(function (querySnapshot) {

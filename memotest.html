@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="memotestStyle.css" />
+    <title>タイトル</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <main>
+      <!-- <div class="fusen" style="padding-left: 60px;"> -->
+        <h2>返品とは</h2>
+
+        <p>
+          取引が終わり無事にお互い満足して・・・なら良いのですが、物を扱う以上そうすんなり終わる事ばかりでもありません。
+          不良品や店側の手違いでお客さんが満足せず、品物が返品されることもあります。 返品は主に店側の過失によりお客さんから物を戻されたときに行う処理です。
+        </p>
+
+        <div class="test0 fusen">中には壊れやすいものや傷みやすいものもある</div>
+
+        <div class="test1 fusen">返品された場合は売上の逆仕訳をしなければいけません。</div>
+
+        <div class="test2 fusen">最初から壊れていた。 納期が大幅に遅れた、等</div>
+
+      <!-- </div> -->
+    </main>
+    <script>
+      $(function() {
+
+
+//テキストを読み込む関数
+
+// 要素への参照を取得
+var textMsg = document.getElementsByTagName("main");
+// コンソールにテキストを表示
+console.log(textMsg[0].innerHTML);
+
+//テキストにspanを挿入
+
+textMsg[0].innerHTML = textMsg[0].innerHTML.replace("物を扱う", '<span class="memo0 under-line">物を扱う</span>');
+textMsg[0].innerHTML = textMsg[0].innerHTML.replace("品物が返品", '<span class="memo1 under-line">品物が返品</span>');
+textMsg[0].innerHTML = textMsg[0].innerHTML.replace("主に店側の過失", '<span class="memo2 under-line">主に店側の過失</span>');
+
+
+        var memo = new Array();
+        let fusen = new Array();
+
+        for (let i=0; i <= 2 ; i++ ) {
+
+          memo.push(document.querySelector(".memo" + i));
+          fusen.push(document.querySelector("div.test" + i));
+
+        }
+/*        
+        var memo1 = document.querySelector(".memo1");
+        var memo2 = document.querySelector(".memo2");
+        var memo3 = document.querySelector(".memo3");
+        let fusen1 = document.querySelector("div.test1");
+        let fusen2 = document.querySelector("div.test2");
+        let fusen3 = document.querySelector("div.test3");
+*/ 
+
+        // windowをリサイズした時に実行される関数
+        function resize() {
+
+          let memo_style = '';
+
+          for (let i=0; i <= 2 ; i++ ) {      
+            if(memo[i].getClientRects()[0].left>400){
+             memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top+window.pageYOffset}px; left:${memo[i].getClientRects()[0].left-200}px; display: ${fusen[i].style.display}`;
+             fusen[i].setAttribute("style", memo_style);
+           }else{
+             memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top+window.pageYOffset}px; left:${memo[i].getClientRects()[0].left}px; display: ${fusen[i].style.display}`;
+             fusen[i].setAttribute("style", memo_style);
+          }
+/*
+          var memo1_style = `position: absolute; top: ${memo1.getClientRects()[0].top}px; left:${memo1.getClientRects()[0].left}px; display: ${fusen1.style.display}`;
+          var memo2_style = `position: absolute; top: ${memo2.getClientRects()[0].top}px; left:${memo2.getClientRects()[0].left}px; display: ${fusen2.style.display}`;
+          var memo3_style = `position: absolute; top: ${memo3.getClientRects()[0].top}px; left:${memo3.getClientRects()[0].left}px; display: ${fusen3.style.display}`;
+          fusen1.setAttribute("style", memo1_style);
+          fusen2.setAttribute("style", memo2_style);
+          fusen3.setAttribute("style", memo3_style);
+*/  
+          }
+        }
+        // onresizeイベントにresize関数を設定する
+        window.onresize = resize;
+
+        // クリックされた時に付箋の表示を制御する
+
+        for(let i = 0; i < memo.length; i++){
+
+          memo[i].addEventListener('click', event => {
+           $(fusen[i]).toggle();
+          });
+          fusen[i].addEventListener('click', event => {
+          $(fusen[i]).toggle();
+        });
+
+        /*
+
+        memo1.addEventListener('click', event => {
+          $(fusen1).toggle();
+        });
+        fusen1.addEventListener('click', event => {
+          $(fusen1).toggle();
+        });
+        memo2.addEventListener('click', event => {
+          $(fusen2).toggle();
+        });
+        fusen2.addEventListener('click', event => {
+          $(fusen2).toggle();
+        });
+        memo3.addEventListener('click', event => {
+          $(fusen3).toggle();
+        });
+        fusen3.addEventListener('click', event => {
+          $(fusen3).toggle();
+        });
+*/
+        } 
+
+        // 画面描画時に付箋の位置を計算する
+        resize();
+      });
+
+    </script>
+  </body>
+</html>

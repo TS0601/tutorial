@@ -1,0 +1,27 @@
+main div.fusen{
+    min-width: 200px;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    margin: 1.6em 0;
+    padding: 1em;
+    position: absolute;
+    /* グラデーションで折り目がついた感じに */
+    background: linear-gradient(to right, #ffffcc 0%, #f1f1c1 0.5%, #f1f1c1 13%, #ffffcc 16%);
+    display: none;
+}
+
+main div.fusen::after{
+    content:"";
+    display:block;
+    position: absolute;
+    z-index: -1;
+    bottom: 5px;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+    transform: rotate(2deg);
+}
+
+.under-line {
+    border-bottom: 1px dotted #333;
+}

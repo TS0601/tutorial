@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="memotestStyle.css" />
+  <title>memo-firebase連携</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <!-- FireBase関連 -->
+
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+      authDomain: "qualification-master.firebaseapp.com",
+      databaseURL: "https://qualification-master.firebaseio.com",
+      projectId: "qualification-master",
+      storageBucket: "qualification-master.appspot.com",
+      messagingSenderId: "733843168310",
+      appId: "1:733843168310:web:1aa23bde7d4373dd"
+    });
+
+    var db = firebase.firestore();
+
+    var create_fusen;
+
+  </script>
+
+</head>
+
+<body>
+  <main>
+    <!-- <div class="fusen" style="padding-left: 60px;"> -->
+    <h2>返品とは</h2>
+
+    <p>
+      取引が終わり無事にお互い満足して・・・なら良いのですが、物を扱う以上そうすんなり終わる事ばかりでもありません。
+      不良品や店側の手違いでお客さんが満足せず、品物が返品されることもあります。 返品は主に店側の過失によりお客さんから物を戻されたときに行う処理です。
+    </p>
+
+  </main>
+  <script>
+    $(function () {
+
+      //テキストを読み込む関数
+
+      // 要素への参照を取得
+      var textMsg = document.getElementsByTagName("main");
+      // コンソールにテキストを表示
+      console.log(textMsg[0].innerHTML);
+
+      var memo = new Array();
+      let fusen = new Array();
+
+      // windowをリサイズした時に実行される関数
+      function resize() {
+
+        let memo_style = '';
+
+        for (let i = 0; i <= 2; i++) {
+          if (memo[i].getClientRects()[0].left > 400) {
+            memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top + window.pageYOffset}px; left:${memo[i].getClientRects()[0].left - 200}px; display: ${fusen[i].style.display}`;
+            fusen[i].setAttribute("style", memo_style);
+          } else {
+            memo_style = `position: absolute; top: ${memo[i].getClientRects()[0].top + window.pageYOffset}px; left:${memo[i].getClientRects()[0].left}px; display: ${fusen[i].style.display}`;
+            fusen[i].setAttribute("style", memo_style);
+          }
+
+        }
+      }
+      // onresizeイベントにresize関数を設定する
+      window.onresize = resize;
+
+      //FireBaseからの読み込み
+
+      const get_fusen = db.collection("experiment-fusen");
+
+
+      //合わせるときは1つに
+      var main = document.getElementsByTagName('main')[0];
+
+      get_fusen.get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+
+          //<span>タグの挿入
+          for (var j = 0; j < 3; j++) {
+            textMsg[0].innerHTML = textMsg[0].innerHTML.replace(doc.data()["memo" + j].文章該当位置, '<span class="memo' + j + ' under-line">' + doc.data()["memo" + j].文章該当位置 + '</span>');
+ console.log(doc.data()["memo" + j].文章該当位置);
+          }
+
+          //付箋の作成
+          for (var k = 0; k < 3; k++) {
+            create_fusen = document.createElement('div')
+
+            create_fusen.innerHTML = doc.data()["memo" + k].メモ内容;
+            create_fusen.classList.add('test' + k, 'fusen');
+            main.appendChild(create_fusen);
+
+          }
+
+          fusen_control();
+
+        })
+      })
+
+      function fusen_control() {
+        for (let i = 0; i <= 2; i++) {
+
+          memo.push(document.querySelector(".memo" + i));
+          fusen.push(document.querySelector("div.test" + i));
+
+        }
+
+        // クリックされた時に付箋の表示を制御する
+        console.log(fusen);
+        for (let i = 0; i < memo.length; i++) {
+
+          memo[i].addEventListener('click', event => {
+            $(fusen[i]).toggle();
+          });
+          fusen[i].addEventListener('click', event => {
+            $(fusen[i]).toggle();
+          });
+
+        }
+
+        // 画面描画時に付箋の位置を計算する
+        resize();
+      }
+
+    });
+
+  </script>
+</body>
+
+</html>

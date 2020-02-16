@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- FireBase関連 -->
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+
+    <script>
+        firebase.initializeApp({
+            apiKey: "AIzaSyBgmke1S6n1nKQZ0Ez6kJ85o3PEOklyKbI",
+            authDomain: "qualification-master.firebaseapp.com",
+            databaseURL: "https://qualification-master.firebaseio.com",
+            projectId: "qualification-master",
+            storageBucket: "qualification-master.appspot.com",
+            messagingSenderId: "733843168310",
+            appId: "1:733843168310:web:1aa23bde7d4373dd"
+        });
+
+        const ERROR_MESSAGE = {
+        "auth/email-already-in-use": "そのメールアドレスはすでに登録されています。",
+        "auth/invalid-email": "メールアドレスの形式が正しくありません。",
+        "auth/weak-password": "パスワードは6文字以上でご入力ください。",
+        "auth/other": "エラーが発生しました。再度操作を行ってください",
+        "auth/user-not-found": "IDまたはパスワードが違います。",
+        "auth/wrong-password": "IDまたはパスワードが違います。"
+      }
+
+        //       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // ...
+        // });
+
+
+        firebase.auth().onAuthStateChanged(function (user) {
+
+            console.log(user);
+
+            if (user) {
+                // User is signed in.
+            } else {
+                // No user is signed in.
+            }
+        });
+
+        function login(data) {
+
+        var email = document.getElementsByName("mailaddress")[0].value;
+        var password = document.getElementsByName("password")[0].value;
+
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+// Handle Errors here.
+var errorCode = error.code;
+var errorMessage = error.message;
+// ...
+
+console.log(errorCode);
+var errorMessage = ERROR_MESSAGE[errorCode] || ERROR_MESSAGE["auth/other"]
+document.getElementById("error-message").innerHTML = errorMessage;
+});
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+        メールアドレス：<input type="email" name="mailaddress" /><br /><br />
+
+        パスワード：<input type="password" name="password" /><br /><br />
+
+        <button onclick="login(this)">ログインする</button><br /><br />
+
+        <span id="error-message" style="color:red;"></span>
+</body>
+
+</html>
