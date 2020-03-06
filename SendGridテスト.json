@@ -1,0 +1,21 @@
+{
+  "personalizations": [
+    {
+      "to": [
+        {
+          "email": "mathgamer.net@gmail.com"
+        }
+      ],
+      "subject": "ご登録ありがとうございます！"
+    }
+  ],
+  "from": {
+    "email": "no-reply@qualification-master.work"
+  },
+  "content": [
+    {
+      "type": "text/plain",
+      "value": "テストメールです！"
+    }
+  ]
+}
